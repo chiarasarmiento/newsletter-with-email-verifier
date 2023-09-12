@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Verifier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    
+    <div class="container">
+		<div class="form-box" data-aos="fade-up">
+			<h1>Newsletter</h1>
+			<p>Sign up for our newsletter today and never miss out on exciting updates and exclusive offers.</p>
+			<form method="POST" id="form">
+				<div class="form-input">
+					<label for="email">Email</label>
+					<input type="email" name="Email" placeholder="example@domain.com" id="email" required>
+				</div>
+				<div class="email-validation"></div>
+				
+				<div class="form-input btn">
+					<button type="submit" value="Submit" id="submit-btn">Submit <div class="loader"></div></button>
+				</div>
+			</form>
+		</div>
+        <footer>
+            <p>Created by <span class="comp">Chiara Sarmiento</span> </p>
+        </footer>
+    </div>
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+	  AOS.init();
+	</script>
+
+	<script>
+		$(document).ready(function () {
+		$(".loader").hide();
+			$('form').on('submit', function (e) {
+				e.preventDefault();
+				$.ajax({
+					type: 'post',
+					url: 'emailVerifier.php',
+					data: $('form').serialize(),
+					beforeSend: function() {
+					    $(".loader").show();
+                        $('.email-validation').hide();
+                    },
+    
+					success: function (data) {
+                        $(".loader").hide();
+						if(data == "success"){
+							$('.email-validation').addClass('success').removeClass('error').text("Thank you for signing up!").fadeIn();
+							$("form").trigger("reset");
+						}
+						else{
+							$('.email-validation').addClass('error').removeClass('success').text(data).fadeIn();
+						}
+						
+					}
+				});
+			});
+		});
+	</script>
+
+	</body>
+
+</html>
