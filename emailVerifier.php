@@ -1,7 +1,7 @@
 <?php
 
 $email = $_POST["Email"];
-$key = "XnxxBggrZZ7UXJa74IXwR";
+$key = "XnxxBggrZZ7UXJa74IXwR"; // This is only a trial key
 
 $url = "https://apps.emaillistverify.com/api/verifyEmail?secret=".$key."&email=".$email;
 
