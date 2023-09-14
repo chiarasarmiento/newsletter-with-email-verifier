@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +12,8 @@
     
     <div class="container">
 		<div class="form-box" data-aos="fade-up">
-			<h1>Newsletter</h1>
-			<p>Sign up for our newsletter today and never miss out on exciting updates and exclusive offers.</p>
+			<h1>Email Verifier</h1>
+			<p>Please input your email address for email verification.</p>
 			<form method="POST" id="form">
 				<div class="form-input">
 					<label for="email">Email</label>
@@ -53,12 +52,15 @@
     
 					success: function (data) {
                         $(".loader").hide();
-						if(data == "success"){
-							$('.email-validation').addClass('success').removeClass('error').text("Thank you for signing up!").fadeIn();
+						if(data == "ok"){
+							$('.email-validation').addClass('success').removeClass('error').text("Fantastic! the email is valid.").fadeIn();
 							$("form").trigger("reset");
-						}
-						else{
-							$('.email-validation').addClass('error').removeClass('success').text(data).fadeIn();
+						}else if(data == "key_not_valid"){
+							$('.email-validation').addClass('error').removeClass("success").text("Oops! It looks like there's an issue with the form. Please try again.").fadeIn();
+						}else if(data == "email_disabled"){
+							$('.email-validation').addClass('error').removeClass("success").text("Oops! The email you entered is disabled. Please provide a different email.").fadeIn();
+						}else{
+							$('.email-validation').addClass('error').removeClass('success').text("Oops! The email you entered is invalid. Please provide a different email.").fadeIn();
 						}
 						
 					}
